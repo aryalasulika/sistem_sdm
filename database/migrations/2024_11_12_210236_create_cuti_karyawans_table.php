@@ -10,14 +10,10 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('shifts', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->time('start_time');
-            $table->time('end_time');
-            $table->foreignId('office_id')->nullable()->constrained('offices')->cascadeOnDelete();
+        Schema::create('cuti_karyawans', function (Blueprint $table) {
+            $table->foreignId('id_cuti')->constrained('cutis')->onDelete('cascade'); // Kolom id_cuti yang berelasi dengan tabel cuti
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade'); // Kolom id_user yang berelasi dengan tabel users
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('shifts');
+        Schema::dropIfExists('cuti_karyawans');
     }
 };

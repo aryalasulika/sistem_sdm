@@ -2,103 +2,112 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin | Login</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('lte/plugins/fontawesome-free/css/all.min.css') }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset('lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('lte/dist/css/adminlte.min.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animasi untuk placeholder */
+        .form-control:focus::placeholder {
+            color: transparent;
+            transition: color 0.3s;
+        }
+    </style>
 </head>
 
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="card card-outline card-primary">
-            <div class="card-header text-center">
-                {{-- <a href="{{ route('login') }}" class="h1">Klinik Pratama Firdaus</a> --}}
-                <h1>Klinik Pratama Firdaus</h1>
-            </div>
-            <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
-                <form action="{{ route('login-proses') }}" method="post">
-                    @csrf
-                    <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @error('email')
-                        <small>{{ $message }}</small>
-                    @enderror
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @error('password')
-                        <small>{{ $message }}</small>
-                    @enderror
-                    <div class="row">
-                        <div class="col-8 mt-2">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4 mt-2">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                </form>
-            </div>
-            <!-- /.card-body -->
+<body class="bg-gradient-to-br from-green-300 via-green-400 to-green-500 min-h-screen flex items-center justify-center">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-xl">
+        <!-- Header -->
+        <div class="bg-green-600 text-white text-center py-5 rounded-t-lg">
+            <h1 class="text-2xl font-bold">Klinik Pratama Firdaus</h1>
+            <p class="text-sm mt-1">Selamat datang, silakan login</p>
         </div>
-        <!-- /.card -->
-    </div>
-    <!-- /.login-box -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('lte/plugins/jquery/jquery.min.js') }}"></script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('lte/dist/js/adminlte.min.js') }}"></script>
-    {{-- sweet Alert --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <!-- Form -->
+        <div class="p-6">
+            <form action="{{ route('login-proses') }}" method="POST" class="space-y-6">
+                <!-- Email -->
+                @csrf
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <div class="mt-1 relative">
+                        <input type="email" id="email" name="email" placeholder="Masukkan email Anda"
+                            class="form-control block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            required />
+                        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                            <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+                @error('email')
+                    <small>{{ $message }}</small>
+                @enderror
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <div class="mt-1 relative">
+                        <input type="password" id="password" name="password" placeholder="Masukkan password Anda"
+                            class="form-control block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500"
+                            required />
+                        <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-400"
+                            onclick="togglePasswordVisibility()">
+                            <i id="eye-icon" class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                @error('password')
+                    <small>{{ $message }}</small>
+                @enderror
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center text-sm text-gray-600">
+                        <input type="checkbox" class="form-checkbox text-green-600 border-gray-300 rounded" />
+                        <span class="ml-2">Ingat saya</span>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                    class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition duration-300 font-medium">
+                    Login
+                </button>
+            </form>
+
+            <!-- Footer -->
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById("password");
+            const eyeIcon = document.getElementById("eye-icon");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.classList.remove("fa-eye");
+                eyeIcon.classList.add("fa-eye-slash");
+            } else {
+                passwordField.type = "password";
+                eyeIcon.classList.remove("fa-eye-slash");
+                eyeIcon.classList.add("fa-eye");
+            }
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     @if ($message = Session::get('succes'))
         <script>
             Swal.fire("{{ $message }}");
         </script>
-    @endif
-
-    @if ($message = Session::get('error'))
-        <script>
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "{{ $message }}",
-            });
-        </script>
-    @endif
+        @endif @if ($message = Session::get('error'))
+            <script>
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "{{ $message }}",
+                });
+            </script>
+        @endif
 </body>
 
 </html>

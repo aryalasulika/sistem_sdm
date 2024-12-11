@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url('admin/user') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Input data office dan shift</li>
+                            <li class="breadcrumb-item active">Edit data office</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -25,8 +25,9 @@
                 <div class="row">
                     <!-- Form Data Perusahaan -->
                     <div class="col-md-6">
-                        <form action="{{ route('admin.officeShiftCreate') }}" method="POST">
+                        <form action="{{ route('admin.updateKlinik', ['id' => $data_office->id]) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <div class="card card-success">
                                 <div class="card-header">
                                     <h3 class="card-title">Form Data Perusahaan</h3>
@@ -36,7 +37,8 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Nama Perusahaan</label>
-                                        <input type="text" name="nama" class="form-control" id="exampleInputEmail1"
+                                        <input type="text" name="nama" value="{{ $data_office->name }}"
+                                            class="form-control" id="exampleInputEmail1"
                                             placeholder="Masukan Nama Perusahaan">
                                         @error('nama')
                                             <small>{{ $message }}</small>
@@ -57,15 +59,15 @@
                                     </div>
                                     {{-- end map --}}
                                     <div class="form-group">
-                                        <input type="hidden" name="lat" class="form-control" id="lat"
-                                            placeholder="">
+                                        <input type="hidden" name="lat" value="{{ $data_office->latitude }}"
+                                            class="form-control" id="lat" placeholder="">
                                         @error('latitude')
                                             <small>{{ $message }}</small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
-                                        <input type="hidden" name="lon" class="form-control" id="lon"
-                                            placeholder="Masukan longitude">
+                                        <input type="hidden" name="lon" value="{{ $data_office->longitude }}"
+                                            class="form-control" id="lon" placeholder="Masukan longitude">
                                         @error('longitude')
                                             <small>{{ $message }}</small>
                                         @enderror
@@ -73,8 +75,8 @@
                                     <div class="form-group mt-2">
                                         <label for="radius">Radius (meter)</label>
                                         <div class="input-group">
-                                            <input type="number" name="radius" class="form-control" id="radius"
-                                                placeholder="Masukan radius">
+                                            <input type="number" name="radius" value="{{ $data_office->radius }}"
+                                                class="form-control" id="radius" placeholder="Masukan radius">
                                             <span class="input-group-text">m</span>
                                         </div>
                                     </div>
@@ -119,99 +121,99 @@
     </div>
     <style>
         /* body {
-                                                                        font-family: 'Poppins', sans-serif;
-                                                                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                                                                        min-height: 100vh;
-                                                                    }
+                                                                                                        font-family: 'Poppins', sans-serif;
+                                                                                                        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+                                                                                                        min-height: 100vh;
+                                                                                                    }
 
-                                                                    .container {
-                                                                        padding-top: 2rem;
-                                                                        padding-bottom: 2rem;
-                                                                    }
+                                                                                                    .container {
+                                                                                                        padding-top: 2rem;
+                                                                                                        padding-bottom: 2rem;
+                                                                                                    }
 
-                                                                    h2.text-center {
-                                                                        color: #2c3e50;
-                                                                        font-weight: 600;
-                                                                        margin-bottom: 2rem;
-                                                                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-                                                                    }
+                                                                                                    h2.text-center {
+                                                                                                        color: #2c3e50;
+                                                                                                        font-weight: 600;
+                                                                                                        margin-bottom: 2rem;
+                                                                                                        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+                                                                                                    }
 
-                                                                    .card {
-                                                                        border: none;
-                                                                        border-radius: 15px;
-                                                                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                                                                        transition: transform 0.3s ease;
-                                                                    }
+                                                                                                    .card {
+                                                                                                        border: none;
+                                                                                                        border-radius: 15px;
+                                                                                                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                                                                                                        transition: transform 0.3s ease;
+                                                                                                    }
 
-                                                                    .card:hover {
-                                                                        transform: translateY(-5px);
-                                                                    }
+                                                                                                    .card:hover {
+                                                                                                        transform: translateY(-5px);
+                                                                                                    }
 
-                                                                    .card-header {
-                                                                        background: linear-gradient(45deg, #4e73df 0%, #224abe 100%);
-                                                                        color: white;
-                                                                        border-radius: 15px 15px 0 0 !important;
-                                                                        padding: 1rem;
-                                                                    }
+                                                                                                    .card-header {
+                                                                                                        background: linear-gradient(45deg, #4e73df 0%, #224abe 100%);
+                                                                                                        color: white;
+                                                                                                        border-radius: 15px 15px 0 0 !important;
+                                                                                                        padding: 1rem;
+                                                                                                    }
 
-                                                                    .form-control {
-                                                                        border-radius: 10px;
-                                                                        padding: 0.75rem;
-                                                                        border: 1px solid #e0e0e0;
-                                                                    }
+                                                                                                    .form-control {
+                                                                                                        border-radius: 10px;
+                                                                                                        padding: 0.75rem;
+                                                                                                        border: 1px solid #e0e0e0;
+                                                                                                    }
 
-                                                                    .form-control:focus {
-                                                                        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
-                                                                        border-color: #4e73df;
-                                                                    }
+                                                                                                    .form-control:focus {
+                                                                                                        box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+                                                                                                        border-color: #4e73df;
+                                                                                                    }
 
-                                                                    .btn-primary {
-                                                                        background: linear-gradient(45deg, #4e73df 0%, #224abe 100%);
-                                                                        border: none;
-                                                                        padding: 0.75rem 1.5rem;
-                                                                        border-radius: 10px;
-                                                                        font-weight: 500;
-                                                                        transition: all 0.3s ease;
-                                                                    }
+                                                                                                    .btn-primary {
+                                                                                                        background: linear-gradient(45deg, #4e73df 0%, #224abe 100%);
+                                                                                                        border: none;
+                                                                                                        padding: 0.75rem 1.5rem;
+                                                                                                        border-radius: 10px;
+                                                                                                        font-weight: 500;
+                                                                                                        transition: all 0.3s ease;
+                                                                                                    }
 
-                                                                    .btn-primary:hover {
-                                                                        transform: translateY(-2px);
-                                                                        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.4);
-                                                                    }
+                                                                                                    .btn-primary:hover {
+                                                                                                        transform: translateY(-2px);
+                                                                                                        box-shadow: 0 4px 12px rgba(78, 115, 223, 0.4);
+                                                                                                    }
 
-                                                                    .input-group-text {
-                                                                        background-color: #4e73df;
-                                                                        color: white;
-                                                                        border: none;
-                                                                        border-radius: 0 10px 10px 0;
-                                                                    }
+                                                                                                    .input-group-text {
+                                                                                                        background-color: #4e73df;
+                                                                                                        color: white;
+                                                                                                        border: none;
+                                                                                                        border-radius: 0 10px 10px 0;
+                                                                                                    }
 
-                                                                    .form-group {
-                                                                        margin-bottom: 1.5rem;
-                                                                    }
+                                                                                                    .form-group {
+                                                                                                        margin-bottom: 1.5rem;
+                                                                                                    }
 
-                                                                    label {
-                                                                        color: #2c3e50;
-                                                                        font-weight: 500;
-                                                                        margin-bottom: 0.5rem;
-                                                                    }
+                                                                                                    label {
+                                                                                                        color: #2c3e50;
+                                                                                                        font-weight: 500;
+                                                                                                        margin-bottom: 0.5rem;
+                                                                                                    }
 
-                                                                    /* Animasi untuk input shift baru */
+                                                                                                    /* Animasi untuk input shift baru */
         /* @keyframes fadeIn {
-                                                                        from {
-                                                                            opacity: 0;
-                                                                            transform: translateY(10px);
-                                                                        }
+                                                                                                        from {
+                                                                                                            opacity: 0;
+                                                                                                            transform: translateY(10px);
+                                                                                                        }
 
-                                                                        to {
-                                                                            opacity: 1;
-                                                                            transform: translateY(0);
-                                                                        }
-                                                                    }
+                                                                                                        to {
+                                                                                                            opacity: 1;
+                                                                                                            transform: translateY(0);
+                                                                                                        }
+                                                                                                    }
 
-                                                                    .mb-3.input-group {
-                                                                        animation: fadeIn 0.3s ease-out;
-                                                                    } */
+                                                                                                    .mb-3.input-group {
+                                                                                                        animation: fadeIn 0.3s ease-out;
+                                                                                                    } */
 
         #map {
             height: 300px;

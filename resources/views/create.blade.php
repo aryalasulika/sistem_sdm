@@ -39,17 +39,27 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email</label>
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                name="email" placeholder="Enter email">
+                                                name="email" placeholder="Enter email" value="{{ old('email') }}">
                                             @error('email')
-                                                <small>{{ $message }}</small>
+                                                <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
                                             <input type="text" name="nama" class="form-control"
-                                                id="exampleInputEmail1" placeholder="Enter name">
+                                                id="exampleInputEmail1" placeholder="Enter name"
+                                                value="{{ old('nama') }}">
                                             @error('nama')
-                                                <small>{{ $message }}</small>
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">NIK</label>
+                                            <input type="number" name="nik" class="form-control" id="nik"
+                                                placeholder="Enter NIK" value="{{ old('nik') }}"
+                                                oninput="this.value = this.value.slice(0, 16)">
+                                            @error('nik')
+                                                <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">

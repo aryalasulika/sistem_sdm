@@ -51,7 +51,7 @@
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Email</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,8 +60,7 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $item->name }}</td>
                                                 <td>{{ $item->email }}</td>
-                                                <td></td>
-                                                <td>
+                                                <td class="text-center">
                                                     <a href="{{ route('admin.user.edit', ['id' => $item->id]) }}"
                                                         class="btn btn-primary"><i class="fas fa-pen ">Edit</i></a>
                                                     <a data-toggle="modal" data-target="#modal-hapus{{ $item->id }}"

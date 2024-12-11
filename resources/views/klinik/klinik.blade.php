@@ -53,6 +53,7 @@
                                             <th>Latitude</th>
                                             <th>Longitude</th>
                                             <th>Radius</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -63,8 +64,8 @@
                                                 <td>{{ $kantor->latitude }}</td>
                                                 <td>{{ $kantor->longitude }}</td>
                                                 <td>{{ $kantor->radius }} m</td>
-                                                <td>
-                                                    <a href="{{ route('admin.user.edit', ['id' => $kantor->id]) }}"
+                                                <td class="text-center">
+                                                    <a href="{{ route('admin.pageUpdateOffice', ['id' => $kantor->id]) }}"
                                                         class="btn btn-primary"><i class="fas fa-pen ">Edit</i></a>
                                                     <a data-toggle="modal" data-target="#modal-hapus{{ $kantor->id }}"
                                                         class="btn btn-danger"><i class="fas fa-trash-alt ">Hapus</i></a>
@@ -81,13 +82,13 @@
                                                             </button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <p>Apakah kamu yakin ingin menghapus data user
+                                                            <p>Apakah kamu yakin ingin menghapus data
                                                                 <b>{{ $kantor->name }}</b> ?
                                                             </p>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <form
-                                                                action="{{ route('admin.user.delete', ['id' => $kantor->id]) }}"
+                                                                action="{{ route('admin.deleteKlinik', ['id' => $kantor->id]) }}"
                                                                 method="POST">
                                                                 @csrf
                                                                 @method('DELETE')

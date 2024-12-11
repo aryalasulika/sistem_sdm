@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Office;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +12,10 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-        return view('dashboard');
+        $userCount = User::count();    // Menghitung jumlah user
+        $officeCount = Office::count(); // Menghitung jumlah office
+
+        return view('dashboard', compact('userCount', 'officeCount'));
     }
     public function index()
     {
@@ -28,8 +32,9 @@ class HomeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'nama' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'nama' => 'required|string|max:255',
+            'nik' => 'required|numeric|unique:users,nik',
             'password' => 'required|min:8',
         ]);
 
@@ -38,11 +43,12 @@ class HomeController extends Controller
 
         $data['email'] = $request->email;
         $data['name'] = $request->nama;
+        $data['nik'] = $request->nik;
         $data['password'] = Hash::make($request->password);
 
         User::create($data);
 
-        return redirect()->route('admin.index');
+        return redirect()->route('admin.index')->with('success', 'User berhasil ditambahkan');
     }
 
     public function edit(Request $request, $id)
