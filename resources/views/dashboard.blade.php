@@ -95,7 +95,7 @@
                                     <a href="{{ route('admin.klinik') }}" class="list-group-item list-group-item-action">
                                         <i class="fas fa-building mr-2"></i> Manage Offices
                                     </a>
-                                    <a href="#" class="list-group-item list-group-item-action">
+                                    <a href="{{ route('admin.index') }}" class="list-group-item list-group-item-action">
                                         <i class="fas fa-users mr-2"></i> Manage Users
                                     </a>
                                     <a href="#" class="list-group-item list-group-item-action">

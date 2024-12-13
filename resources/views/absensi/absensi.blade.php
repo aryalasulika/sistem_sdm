@@ -30,15 +30,17 @@
                                 </div>
                                 <div class="card-body">
                                     <!-- the events -->
-                                    <div id="external-events">
-                                        <div class="external-event bg-success">arya</div>
-                                        <div class="external-event bg-warning">Go home</div>
-                                        <div class="external-event bg-info">Do homework</div>
-                                        <div class="external-event bg-primary">Work on UI design</div>
-                                        <div class="external-event bg-danger">Sleep tight</div>
-                                        <div class="checkbox">
-                                            <label for="drop-remove">
-                                                <input type="checkbox" id="drop-remove">
+                                    @php
+                                        $colors = ['bg-success', 'bg-warning', 'bg-info', 'bg-primary', 'bg-danger'];
+                                    @endphp
+                                    <div id='external-events'>
+                                        @foreach ($users as $index => $user)
+                                            <div class='external-event {{ $colors[$index % count($colors)] }}'>
+                                                {{ $user->name }}</div>
+                                        @endforeach
+                                        <div class='checkbox'>
+                                            <label for='drop-remove'>
+                                                <input type='checkbox' id='drop-remove'>
                                                 remove after drop
                                             </label>
                                         </div>
@@ -110,7 +112,14 @@
         <script src="{{ asset('lte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <!-- AdminLTE App -->
         <script src="{{ asset('lte/dist/js/adminlte.min.js') }}"></script>
-        <!-- AdminLTE for demo purposes -->
+        <!-- Sidebar toggle script -->
+        <script>
+            $(document).ready(function() {
+                $('[data-widget="pushmenu"]').on('click', function() {
+                    $('body').toggleClass('sidebar-collapse sidebar-open');
+                });
+            });
+        </script>
         <!-- Page specific script -->
         <script>
             document.addEventListener('DOMContentLoaded', function() {
