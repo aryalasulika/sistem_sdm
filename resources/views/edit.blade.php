@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="{{ url('admin/user') }}">Home</a></li>
-                            <li class="breadcrumb-item active">Edit Data</li>
+                            <li class="breadcrumb-item active">tambah User</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -29,9 +29,9 @@
                         <!-- left column -->
                         <div class="col-md-6">
                             <!-- general form elements -->
-                            <div class="card card-primary">
+                            <div class="card card-success">
                                 <div class="card-header">
-                                    <h3 class="card-title">Form Edit Data</h3>
+                                    <h3 class="card-title">Form Tambah User</h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <!-- form start -->
@@ -40,17 +40,27 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email</label>
                                             <input type="email" class="form-control" id="exampleInputEmail1"
-                                                name="email" value="{{ $data->email }}" placeholder="Enter email">
+                                                name="email" placeholder="Enter email" value="{{ $data->email }}">
                                             @error('email')
-                                                <small>{{ $message }}</small>
+                                                <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Nama</label>
-                                            <input type="text" name="nama" value="{{ $data->name }}"
-                                                class="form-control" id="exampleInputEmail1" placeholder="Enter name">
+                                            <input type="text" name="nama" class="form-control"
+                                                id="exampleInputEmail1" placeholder="Enter name"
+                                                value="{{ $data->name }}">
                                             @error('nama')
-                                                <small>{{ $message }}</small>
+                                                <small class="text-danger">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">NIK</label>
+                                            <input type="number" name="nik" class="form-control" id="nik"
+                                                placeholder="Enter NIK" value="{{ old('nik') }}" minlength="16"
+                                                maxlength="16" required oninput="this.value = this.value.slice(0, 16)">
+                                            @error('nik')
+                                                <small class="text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
@@ -65,7 +75,7 @@
                                     <!-- /.card-body -->
 
                                     <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-success">Submit</button>
                                     </div>
                                 </form>
                             </div>

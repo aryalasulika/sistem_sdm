@@ -34,7 +34,7 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'nama' => 'required|string|max:255',
-            'nik' => 'required|numeric|unique:users,nik',
+            'nik' => 'required|digits:16|numeric|unique:users,nik',
             'password' => 'required|min:8',
         ]);
 

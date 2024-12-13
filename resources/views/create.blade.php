@@ -56,8 +56,8 @@
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">NIK</label>
                                             <input type="number" name="nik" class="form-control" id="nik"
-                                                placeholder="Enter NIK" value="{{ old('nik') }}"
-                                                oninput="this.value = this.value.slice(0, 16)">
+                                                placeholder="Enter NIK" value="{{ old('nik') }}" minlength="16"
+                                                maxlength="16" required oninput="this.value = this.value.slice(0, 16)">
                                             @error('nik')
                                                 <small class="text-danger">{{ $message }}</small>
                                             @enderror
