@@ -7,75 +7,103 @@
     <title>Login | Admin</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="{{ asset('lte/plugins/favicon.ico') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Animasi untuk placeholder */
-        .form-control:focus::placeholder {
-            color: transparent;
-            transition: color 0.3s;
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control {
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-animation {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-green-300 via-green-400 to-green-500 min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-md bg-white rounded-lg shadow-xl">
+<body
+    class="bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400 min-h-screen flex items-center justify-center p-4">
+    <div class="login-animation w-full max-w-md glass-effect rounded-2xl shadow-2xl overflow-hidden">
         <!-- Header -->
-        <div class="bg-green-600 text-white text-center py-5 rounded-t-lg">
-            <h1 class="text-2xl font-bold">Klinik Pratama Firdaus</h1>
-            <p class="text-sm mt-1">Selamat datang, silakan login</p>
+        <div class="bg-gradient-to-r from-green-600 to-emerald-600 text-white text-center py-6 px-4">
+            <img src="{{ asset('lte/dist/img/logo_klinik.jpg') }}" alt="Logo"
+                class="mx-auto h-20 w-20 rounded-full border-4 border-white mb-3">
+            <h1 class="text-3xl font-bold">Klinik Pratama Firdaus</h1>
+            <p class="text-sm mt-2 opacity-90">Selamat datang, silakan login untuk melanjutkan</p>
         </div>
 
         <!-- Form -->
-        <div class="p-6">
+        <div class="p-8">
             <form action="{{ route('login-proses') }}" method="POST" class="space-y-6">
-                <!-- Email -->
                 @csrf
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                    <div class="mt-1 relative">
-                        <input type="email" id="email" name="email" placeholder="Masukkan email Anda"
-                            class="form-control block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500"
-                            required />
-                        <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                            <i class="fas fa-envelope text-gray-400"></i>
-                        </div>
+                <!-- Email -->
+                <div class="space-y-2">
+                    <label for="email" class="text-sm font-semibold text-gray-600">Email</label>
+                    <div class="relative">
+                        <input type="email" id="email" name="email"
+                            class="form-control w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                            placeholder="Masukkan email Anda" required />
+                        <i class="fas fa-envelope absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                     </div>
+                    @error('email')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
-                @error('email')
-                    <small>{{ $message }}</small>
-                @enderror
+
                 <!-- Password -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <div class="mt-1 relative">
-                        <input type="password" id="password" name="password" placeholder="Masukkan password Anda"
-                            class="form-control block w-full px-4 py-2 text-gray-700 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500"
-                            required />
-                        <button type="button" class="absolute inset-y-0 right-3 flex items-center text-gray-400"
+                <div class="space-y-2">
+                    <label for="password" class="text-sm font-semibold text-gray-600">Password</label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password"
+                            class="form-control w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                            placeholder="Masukkan password Anda" required />
+                        <button type="button"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                             onclick="togglePasswordVisibility()">
                             <i id="eye-icon" class="fas fa-eye"></i>
                         </button>
                     </div>
+                    @error('password')
+                        <small class="text-red-500">{{ $message }}</small>
+                    @enderror
                 </div>
-                @error('password')
-                    <small>{{ $message }}</small>
-                @enderror
 
-                <!-- Remember Me & Forgot Password -->
+                <!-- Remember Me -->
                 <div class="flex items-center justify-between">
-                    <label class="flex items-center text-sm text-gray-600">
-                        <input type="checkbox" class="form-checkbox text-green-600 border-gray-300 rounded" />
-                        <span class="ml-2">Ingat saya</span>
+                    <label class="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer">
+                        <input type="checkbox"
+                            class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+                        <span>Ingat saya</span>
                     </label>
                 </div>
 
                 <!-- Submit Button -->
                 <button type="submit"
-                    class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition duration-300 font-medium">
+                    class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-lg hover:opacity-90 transition duration-300 font-medium text-sm uppercase tracking-wider">
                     Login
+                    <i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </form>
-
-            <!-- Footer -->
         </div>
     </div>
 
@@ -94,21 +122,29 @@
             }
         }
     </script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
-    @if ($message = Session::get('succes'))
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if ($message = Session::get('success'))
         <script>
-            Swal.fire("{{ $message }}");
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "{{ $message }}",
+                showConfirmButton: false,
+                timer: 3000
+            });
         </script>
-        @endif @if ($message = Session::get('error'))
-            <script>
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "{{ $message }}",
-                });
-            </script>
-        @endif
+    @endif
+    @if ($message = Session::get('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ $message }}",
+                confirmButtonColor: '#10B981'
+            });
+        </script>
+    @endif
 </body>
 
 </html>
