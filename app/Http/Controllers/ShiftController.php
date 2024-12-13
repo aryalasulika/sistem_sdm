@@ -13,7 +13,7 @@ class ShiftController extends Controller
     {
         $data_shift = Shift::get();
 
-        return view('shift.shift', compact('data_shift'));
+        return view('Shift.shift', compact('data_shift'));
     }
 
     public function klinik_shift()
