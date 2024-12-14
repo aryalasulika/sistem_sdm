@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'nik',
+        'alamat',
+        'jabatan',
+        'no_hp',
     ];
 
     /**

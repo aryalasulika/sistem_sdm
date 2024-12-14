@@ -34,6 +34,9 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users,email',
             'nama' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'no_hp' => 'required',
+            'alamat' => 'required',
             'nik' => 'required|digits:16|numeric|unique:users,nik',
             'password' => 'required|min:8',
         ]);
@@ -43,6 +46,9 @@ class HomeController extends Controller
 
         $data['email'] = $request->email;
         $data['name'] = $request->nama;
+        $data['jabatan'] = $request->jabatan;
+        $data['alamat'] = $request->alamat;
+        $data['no_hp'] = $request->no_hp;
         $data['nik'] = $request->nik;
         $data['password'] = Hash::make($request->password);
 
@@ -62,7 +68,11 @@ class HomeController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'nama' => 'required',
+            'nama' => 'required|string|max:255',
+            'jabatan' => 'required|string|max:255',
+            'no_hp' => 'required',
+            'alamat' => 'required',
+            'nik' => 'required|digits:16|numeric',
             'password' => 'nullable|min:8',
         ]);
 
@@ -71,6 +81,10 @@ class HomeController extends Controller
 
         $data['email'] = $request->email;
         $data['name'] = $request->nama;
+        $data['jabatan'] = $request->jabatan;
+        $data['no_hp'] = $request->no_hp;
+        $data['alamat'] = $request->alamat;
+        $data['nik'] = $request->nik;
 
         if ($request->password) {
             $data['password'] = Hash::make($request->password);
