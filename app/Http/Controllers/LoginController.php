@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Models\Admin;
 
 class LoginController extends Controller
 {
+    protected function guard()
+    {
+        return Auth::guard('admin');
+    }
+
     public function index()
     {
         return view('auth.login');
@@ -16,26 +21,38 @@ class LoginController extends Controller
     public function login_proses(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'password' => 'required',
+            'email' => 'required|email:rfc,dns',
+            'password' => 'required|min:6',
+        ], [
+            'email.required' => 'Email wajib diisi',
+            'email.email' => 'Format email tidak valid',
+            'password.required' => 'Password wajib diisi',
+            'password.min' => 'Password minimal 6 karakter'
         ]);
 
-        $data = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
+        $credentials = $request->only('email', 'password');
+        $remember = $request->has('remember');
 
-        if (Auth::attempt($data)) {
-            return redirect()->route('admin.dashboard');
-        } else {
-            return redirect()->route('login')->with('error', 'Email atau password salah');
+        if ($this->guard()->attempt($credentials, $remember)) {
+            $request->session()->regenerate();
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Selamat datang kembali!');
         }
 
+        return redirect()->route('login')
+            ->withInput($request->only('email'))
+            ->withErrors([
+                'login_error' => 'Email atau password yang Anda masukkan salah.'
+            ]);
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect()->route('login')->with('succes', 'Kamu Berhasil Logout');
+        $this->guard()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')
+            ->with('success', 'Anda berhasil keluar dari sistem');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Office;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -14,8 +15,9 @@ class HomeController extends Controller
     {
         $userCount = User::count();    // Menghitung jumlah user
         $officeCount = Office::count(); // Menghitung jumlah office
+        $presensiCount = DB::table('presensi')->count(); // Menghitung jumlah presensi
 
-        return view('dashboard', compact('userCount', 'officeCount'));
+        return view('dashboard', compact('userCount', 'officeCount', 'presensiCount'));
     }
     public function index()
     {

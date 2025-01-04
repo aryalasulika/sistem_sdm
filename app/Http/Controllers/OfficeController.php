@@ -46,9 +46,62 @@ class OfficeController extends Controller
     //     return redirect()->route('admin.klinik');
     // }
 
+    /*  
+        public function saveData(Request $request)
+        {
+            // dd($request->all());
+
+            // Validasi data perusahaan (office)
+            $officeValidator = Validator::make($request->all(), [
+                'nama' => 'required',
+                'lat' => 'required',
+                'lon' => 'required',
+                'radius' => 'required',
+            ]);
+
+            // Validasi data shift
+            $shiftValidator = Validator::make($request->all(), [
+                'nama_shift' => 'required',
+                'jam_masuk' => 'required',
+                'jam_keluar' => 'required',
+            ]);
+
+            // Jika validasi data office gagal
+            if ($officeValidator->fails()) {
+                return redirect()->back()->withInput()->withErrors($officeValidator);
+            }
+
+            // Jika validasi data shift gagal
+            if ($shiftValidator->fails()) {
+                return redirect()->back()->withInput()->withErrors($shiftValidator);
+            }
+
+            // Menyimpan data perusahaan (office)
+            $data_office = [
+                'name' => $request->nama,
+                'latitude' => $request->lat,
+                'longitude' => $request->lon,
+                'radius' => $request->radius,
+            ];
+            Office::create($data_office);
+
+            // Menyimpan data shift
+            $data_shift = [
+                'nama' => $request->nama_shift,
+                'start_time' => $request->jam_masuk,
+                'end_time' => $request->jam_keluar,
+            ];
+            Shift::create($data_shift);
+
+            // Redirect ke halaman yang sesuai setelah menyimpan
+            return redirect()->route('admin.klinik')->with('success', 'Data perusahaan dan shift berhasil disimpan.');
+        }
+
+        */
     public function saveData(Request $request)
     {
-        // dd($request->all());
+        // Debugging: Periksa data yang diterima
+        dd($request->all());
 
         // Validasi data perusahaan (office)
         $officeValidator = Validator::make($request->all(), [
@@ -60,9 +113,9 @@ class OfficeController extends Controller
 
         // Validasi data shift
         $shiftValidator = Validator::make($request->all(), [
-            'nama_shift' => 'required',
-            'jam_masuk' => 'required',
-            'jam_keluar' => 'required',
+            'nama_shift' => 'required|array',
+            'jam_masuk' => 'required|array',
+            'jam_keluar' => 'required|array',
         ]);
 
         // Jika validasi data office gagal
@@ -85,12 +138,14 @@ class OfficeController extends Controller
         Office::create($data_office);
 
         // Menyimpan data shift
-        $data_shift = [
-            'nama' => $request->nama_shift,
-            'start_time' => $request->jam_masuk,
-            'end_time' => $request->jam_keluar,
-        ];
-        Shift::create($data_shift);
+        foreach ($request->nama_shift as $index => $nama_shift) {
+            $data_shift = [
+                'nama' => $nama_shift,
+                'start_time' => $request->jam_masuk[$index],
+                'end_time' => $request->jam_keluar[$index],
+            ];
+            Shift::create($data_shift);
+        }
 
         // Redirect ke halaman yang sesuai setelah menyimpan
         return redirect()->route('admin.klinik')->with('success', 'Data perusahaan dan shift berhasil disimpan.');

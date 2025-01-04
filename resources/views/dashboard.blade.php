@@ -53,8 +53,8 @@
                                 <i class="fas fa-clock"></i>
                             </span>
                             <div class="info-box-content">
-                                <span class="info-box-text">Today's Attendance</span>
-                                <span class="info-box-number">{{ $attendanceCount ?? 0 }}</span>
+                                <span class="info-box-text">Attendance</span>
+                                <span class="info-box-number">{{ $presensiCount ?? 0 }}</span>
                             </div>
                         </div>
                     </div>

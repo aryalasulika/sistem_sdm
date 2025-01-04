@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], 
     Route::delete('/delete/{id}', [HomeController::class, 'delete'])->name('user.delete');
 
     Route::get('/absensi', [AbsensiController::class, 'absen'])->name('absen');
+    Route::get('/userabsen', [AbsensiController::class, 'userabsen'])->name('userabsen');
 
 });
 

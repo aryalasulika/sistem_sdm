@@ -151,6 +151,14 @@
                             <a href="{{ route('admin.absen') }}" class="nav-link">
                                 <i class="nav-icon fas fa-check-circle"></i>
                                 <p>
+                                    Belum Jelas
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.userabsen') }}" class="nav-link">
+                                <i class="nav-icon fas fa-clipboard-check"></i>
+                                <p>
                                     Absensi
                                 </p>
                             </a>

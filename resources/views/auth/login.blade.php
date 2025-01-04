@@ -89,14 +89,18 @@
                 </div>
 
                 <!-- Remember Me -->
-                <div class="flex items-center justify-between">
+                {{-- <div class="flex items-center justify-between">
                     <label class="flex items-center space-x-2 text-sm text-gray-600 cursor-pointer">
                         <input type="checkbox"
                             class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
                         <span>Ingat saya</span>
                     </label>
+                </div> --}}
+                <div class="flex items-center space-x-2 mb-6">
+                    <input type="checkbox" name="remember" id="remember"
+                        class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500 focus:ring-2">
+                    <label for="remember" class="text-sm text-gray-600 cursor-pointer">Ingat Saya</label>
                 </div>
-
                 <!-- Submit Button -->
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-lg hover:opacity-90 transition duration-300 font-medium text-sm uppercase tracking-wider">
