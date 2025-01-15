@@ -22,8 +22,14 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth'], 'as' => 'admin.'], function () {
 
+    // Route::get('/cuti', [CutiController::class, 'cutiPage'])->name('cuti');
+    // Route::get('/tambah_cuti', [CutiController::class, 'tambahCuti'])->name('tambah_cuti');
     Route::get('/cuti', [CutiController::class, 'cutiPage'])->name('cuti');
-    Route::get('/tambah_cuti', [CutiController::class, 'tambahCuti'])->name('tambah_cuti');
+    Route::get('/cuti/tambah', [CutiController::class, 'tambahCuti'])->name('tambah_cuti');
+    Route::post('/cuti/store', [CutiController::class, 'storeCuti'])->name('store_cuti');
+    Route::post('/cuti/approve/{id}', [CutiController::class, 'approve'])->name('approve_cuti');
+    Route::post('/cuti/reject/{id}', [CutiController::class, 'reject'])->name('reject_cuti');
+    Route::delete('/cuti/delete/{id}', [CutiController::class, 'destroy'])->name('delete_cuti');
 
     Route::get('/shift', [ShiftController::class, 'shift'])->name('shift');
     Route::get('/halamanupdateshift/{id}', [ShiftController::class, 'editShift'])->name('pageUpdateShift');
